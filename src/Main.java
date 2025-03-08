@@ -1,17 +1,41 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
+import javax.swing.*;
+import java.awt.*;
+
 public class Main {
+    public static void run(final JFrame frame, final int width, final int height) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                frame.setTitle(frame.getClass().getSimpleName());
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(width, height);
+                frame.setVisible(true);
+                frame.setLocationRelativeTo(null);
+                frame.setResizable(false);
+            }
+        });
+    }
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
         }
+        JFrame frame = new JFrame();
+        SudokuElement[][] elements = SudokuList.generateSudoku();
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 3, 0, 0));
+        for (int i = 0; i < 9; i++)
+        {
+            panel.add(new ComplexCell(elements, i + 1));
+        }
+        frame.add(panel, BorderLayout.CENTER);
+        run(frame, 500, 500);
     }
 }

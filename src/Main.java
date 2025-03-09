@@ -1,6 +1,9 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class Main {
     public static void run(final JFrame frame, final int width, final int height) {
@@ -27,15 +30,7 @@ public class Main {
         } catch (Exception e) {
 
         }
-        JFrame frame = new JFrame();
-        SudokuElement[][] elements = SudokuList.generateSudoku();
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 3, 0, 0));
-        for (int i = 0; i < 9; i++)
-        {
-            panel.add(new ComplexCell(elements, i + 1));
-        }
-        frame.add(panel, BorderLayout.CENTER);
-        run(frame, 500, 500);
+
+        run(new MainFrame(), 500, 500);
     }
 }
